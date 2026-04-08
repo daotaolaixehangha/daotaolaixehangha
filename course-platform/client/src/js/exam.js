@@ -20,11 +20,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const currentUser = await window.DriveSchoolCommon.getCurrentUser();
   if (!currentUser) {
-    window.DriveSchoolCommon.redirectWithLang("/login.html");
+    window.DriveSchoolCommon.redirectWithLang("./login.html");
     return;
   }
   if (currentUser.role !== "student") {
-    window.DriveSchoolCommon.redirectWithLang("/admin.html");
+    window.DriveSchoolCommon.redirectWithLang("./admin.html");
     return;
   }
 
@@ -597,7 +597,7 @@ function renderCoursePanel(exam, currentUser, examResponse) {
   const resultLink = document.getElementById("studentResultLink");
   if (resultLink) {
     if (latestAttempt?.id) {
-      resultLink.href = window.DriveSchoolCommon.withLangUrl(`/result.html?id=${latestAttempt.id}`);
+      resultLink.href = window.DriveSchoolCommon.withLangUrl(`./result.html?id=${latestAttempt.id}`);
     } else {
       resultLink.href = "#studentHistory";
     }
@@ -620,7 +620,7 @@ function renderHistory(results) {
             <td>${window.DriveSchoolCommon.escapeHtml(item.exam_title || item.exam_id)}</td>
             <td>${window.DriveSchoolCommon.escapeHtml(String(item.score))}</td>
             <td>${item.passed ? `<span class="badge text-bg-success">${t("result.pass", "PASSED")}</span>` : `<span class="badge text-bg-danger">${t("result.fail", "FAILED")}</span>`}</td>
-            <td><a class="btn btn-sm btn-outline-primary" href="${window.DriveSchoolCommon.withLangUrl(`/result.html?id=${item.id}`)}">${t("student.viewResult", "View result")}</a></td>
+            <td><a class="btn btn-sm btn-outline-primary" href="${window.DriveSchoolCommon.withLangUrl(`./result.html?id=${item.id}`)}">${t("student.viewResult", "View result")}</a></td>
           </tr>
         `
       )
@@ -723,9 +723,10 @@ async function submitExam(examId, silent = false) {
       );
     }
 
-    window.location.href = window.DriveSchoolCommon.withLangUrl(`/result.html?id=${response.data.result_id}`);
+    window.location.href = window.DriveSchoolCommon.withLangUrl(`./result.html?id=${response.data.result_id}`);
   } catch (error) {
     window.DriveSchoolCommon.showToast(error.message, "danger");
     submitButton.disabled = false;
   }
 }
+

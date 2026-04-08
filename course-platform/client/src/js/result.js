@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const currentUser = await window.DriveSchoolCommon.getCurrentUser();
   if (!currentUser) {
-    window.DriveSchoolCommon.redirectWithLang("/login.html");
+    window.DriveSchoolCommon.redirectWithLang("./login.html");
     return;
   }
 
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const resultId = params.get("id");
   if (!resultId) {
-    window.DriveSchoolCommon.redirectWithLang("/exam.html");
+    window.DriveSchoolCommon.redirectWithLang("./exam.html");
     return;
   }
 
@@ -59,7 +59,7 @@ function renderHistory(results, activeResultId) {
             <td>${window.DriveSchoolCommon.escapeHtml(String(item.score))}</td>
             <td>${item.passed ? `<span class="badge text-bg-success">${t("result.pass", "PASSED")}</span>` : `<span class="badge text-bg-danger">${t("result.fail", "FAILED")}</span>`}</td>
             <td>${window.DriveSchoolCommon.formatDateTime(item.submitted_at)}</td>
-            <td><a class="btn btn-sm btn-outline-primary" href="${window.DriveSchoolCommon.withLangUrl(`/result.html?id=${item.id}`)}">${t("result.historyView", "View")}</a></td>
+            <td><a class="btn btn-sm btn-outline-primary" href="${window.DriveSchoolCommon.withLangUrl(`./result.html?id=${item.id}`)}">${t("result.historyView", "View")}</a></td>
           </tr>
         `
       )
@@ -89,3 +89,4 @@ function renderAnswerReview(result) {
 
   document.getElementById("answerReviewTable").innerHTML = reviewRows.join("");
 }
+

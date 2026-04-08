@@ -27,11 +27,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const currentUser = await window.DriveSchoolCommon.getCurrentUser();
   if (!currentUser) {
-    window.DriveSchoolCommon.redirectWithLang("/login.html");
+    window.DriveSchoolCommon.redirectWithLang("./login.html");
     return;
   }
   if (currentUser.role !== "admin") {
-    window.DriveSchoolCommon.redirectWithLang("/exam.html");
+    window.DriveSchoolCommon.redirectWithLang("./exam.html");
     return;
   }
 
@@ -731,3 +731,4 @@ function resetSimulationClipForm() {
   document.getElementById("simulationClipActive").checked = true;
   document.getElementById("simulationClipModalTitle").textContent = "Tao video mo phong";
 }
+

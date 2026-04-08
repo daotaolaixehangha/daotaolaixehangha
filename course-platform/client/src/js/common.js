@@ -10,8 +10,30 @@ function setLang(lang) {
   window.history.replaceState({}, "", url);
 }
 
+function getApiBaseUrl() {
+  const configuredBase =
+    typeof window.DriveSchoolConfig?.apiBaseUrl === "string"
+      ? window.DriveSchoolConfig.apiBaseUrl.trim()
+      : "";
+  return configuredBase.replace(/\/+$/, "");
+}
+
+function resolveApiUrl(url) {
+  if (/^https?:\/\//i.test(url)) {
+    return url;
+  }
+
+  const apiBaseUrl = getApiBaseUrl();
+  if (!apiBaseUrl) {
+    return url;
+  }
+
+  const normalizedPath = url.startsWith("/") ? url : `/${url}`;
+  return `${apiBaseUrl}${normalizedPath}`;
+}
+
 async function apiFetch(url, options = {}) {
-  const response = await fetch(url, {
+  const response = await fetch(resolveApiUrl(url), {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
@@ -90,13 +112,13 @@ async function getCurrentUser() {
 }
 
 function redirectWithLang(path) {
-  const url = new URL(path, window.location.origin);
+  const url = new URL(path, window.location.href);
   url.searchParams.set("lang", getLang());
   window.location.href = url.toString();
 }
 
 function withLangUrl(path) {
-  const url = new URL(path, window.location.origin);
+  const url = new URL(path, window.location.href);
   url.searchParams.set("lang", getLang());
   return `${url.pathname}${url.search}`;
 }
@@ -122,7 +144,7 @@ async function logoutAndRedirect() {
   } catch (error) {
     console.warn("Logout failed", error.message);
   }
-  redirectWithLang("/login.html");
+  redirectWithLang("./login.html");
 }
 
 window.DriveSchoolCommon = {
@@ -140,3 +162,4 @@ window.DriveSchoolCommon = {
   formatDateTime,
   logoutAndRedirect
 };
+

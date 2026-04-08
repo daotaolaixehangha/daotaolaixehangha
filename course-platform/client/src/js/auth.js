@@ -13,10 +13,10 @@ function t(key, fallback = "") {
 async function guardLoggedIn() {
   const currentUser = await window.DriveSchoolCommon.getCurrentUser();
   if (currentUser?.role === "admin") {
-    window.DriveSchoolCommon.redirectWithLang("/admin.html");
+    window.DriveSchoolCommon.redirectWithLang("./admin.html");
   }
   if (currentUser?.role === "student") {
-    window.DriveSchoolCommon.redirectWithLang("/exam.html");
+    window.DriveSchoolCommon.redirectWithLang("./exam.html");
   }
 }
 
@@ -37,9 +37,9 @@ function initLoginForm() {
       });
       window.DriveSchoolCommon.showToast(t("login.toastSuccess", "Login successful."), "success");
       if (response.data.user.role === "admin") {
-        window.DriveSchoolCommon.redirectWithLang("/admin.html");
+        window.DriveSchoolCommon.redirectWithLang("./admin.html");
       } else {
-        window.DriveSchoolCommon.redirectWithLang("/exam.html");
+        window.DriveSchoolCommon.redirectWithLang("./exam.html");
       }
     } catch (error) {
       window.DriveSchoolCommon.showToast(error.message, "danger");
@@ -48,3 +48,4 @@ function initLoginForm() {
     }
   });
 }
+
