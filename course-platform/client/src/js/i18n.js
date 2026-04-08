@@ -7,7 +7,7 @@
 
   async function loadTranslations() {
     const lang = window.DriveSchoolCommon.getLang();
-    const response = await fetch(`./src/i18n/${lang}.json`);
+    const response = await fetch(`../src/i18n/${lang}.json`);
     dictionary = await response.json();
     applyTranslations();
     initSwitcher();
@@ -67,4 +67,5 @@
     t
   };
 })();
+
 
